@@ -8,10 +8,10 @@ const Partners = () => {
           <div className="sec-ttl v2 text-center">
             <div className="sec-ttl-inr">
               <h2 itemProp="headline">
-                Charity Organizations Work In The Fundraising
+                Our work is being recoganized and sponsored
               </h2>
               <span>
-                Trusted by world-class organizations. he people of Equity Trust
+                Trusted by world-class organizations. The people of Equity Trust
                 enable.
               </span>
             </div>

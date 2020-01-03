@@ -1,16 +1,10 @@
 import React from "react";
+import TopBG from "../../components/Front/TopBG";
 
 const Donate = () => {
   return (
     <>
-      <section>
-        <div className="block no-padding">
-          <div
-            className="pg-tp-bg"
-            style={{ backgroundImage: "url(/images/pg-tp-bg1.jpg)" }}
-          ></div>
-        </div>
-      </section>
+      <TopBG />
       <div className="gray-bg3 brdcrmb-wrp">
         <div className="container">
           <div className="brdcrmb-inr flex justify-content-between">
@@ -60,7 +54,7 @@ const Donate = () => {
                     </div>
                     <div className="col-md-8 col-sm-8 col-lg-8">
                       <div className="slc-wrp">
-                        <select>
+                        <select className="d-select">
                           <option>Select Country</option>
                           <option>United State</option>
                           <option>United Kingdom</option>
@@ -125,7 +119,7 @@ const Donate = () => {
                           <div className="row mrg">
                             <div className="col-md-4 col-sm-4 col-lg-4">
                               <div className="slc-wrp">
-                                <select>
+                                <select className="d-select border-link">
                                   <option>Mr</option>
                                   <option>Mrs</option>
                                 </select>
@@ -137,6 +131,7 @@ const Donate = () => {
                           </div>
                         </span>
                       </span>
+
                       <span className="dnt-fld3">
                         <label>City</label>
                         <span className="dnt-fld-inr">
@@ -149,7 +144,7 @@ const Donate = () => {
                           <div className="row mrg20">
                             <div className="col-md-6 col-sm-6 col-lg-6">
                               <div className="slc-wrp">
-                                <select>
+                                <select className="d-select border-link">
                                   <option>State</option>
                                   <option>State 1</option>
                                 </select>
@@ -214,7 +209,7 @@ const Donate = () => {
                           <div className="row mrg20">
                             <div className="col-md-6 col-sm-6 col-lg-6">
                               <div className="slc-wrp">
-                                <select>
+                                <select className="d-select border-link">
                                   <option>Month</option>
                                   <option>Jan</option>
                                   <option>Feb</option>
@@ -225,7 +220,7 @@ const Donate = () => {
                             </div>
                             <div className="col-md-6 col-sm-6 col-lg-6">
                               <div className="slc-wrp">
-                                <select>
+                                <select className="d-select border-link">
                                   <option>Year</option>
                                   <option>1994</option>
                                   <option>1995</option>

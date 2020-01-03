@@ -19,6 +19,7 @@ import ErrorPage from "./pages/Front/Error";
 import Faq from "./pages/Front/Faq";
 import Home from "./pages/Front/Home";
 import Donate from "./pages/Front/Donate";
+import Apply from "./pages/Front/Apply";
 
 const AppRoute = ({ component: Component, layout: Layout, ...rest }) => (
   <Route
@@ -41,6 +42,7 @@ const App = () => (
         <AppRoute exact path="/contact" layout={Front} component={Contact_us} />
         <AppRoute exact path="/faq" layout={Front} component={Faq} />
         <AppRoute exact path="/donate" layout={Front} component={Donate} />
+        <AppRoute exact path="/apply" layout={Front} component={Apply} />
         <AppRoute
           exact
           path="/blog/:id"

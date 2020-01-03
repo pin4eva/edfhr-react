@@ -1,5 +1,6 @@
 import React from "react";
 import Partners from "../../components/Front/Home/partners";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -17,12 +18,24 @@ const Home = () => {
                   <div className="col-md-5 col-sm-6 col-lg-5">
                     <div className="feat-cap">
                       <h2 itemProp="headline">
-                        <strong>We are The</strong> National Charity For
-                        Homeless <strong>Poor People</strong>
+                        <strong>We are non-profit </strong>
+                        for the <strong>criminal</strong> and{" "}
+                        <strong>social</strong> injustice
                       </h2>
                       <p itemProp="description">
-                        Our nonprofit customers raise more money online with
-                        less Proven to increase event participation.
+                        We are dedicated to addressing the causes of criminality
+                        and restoring criminal’s{" "}
+                        <strong className="text-warning font-italic">
+                          self-respect
+                        </strong>
+                        , {""}
+                        <strong className="text-warning font-italic">
+                          public safety
+                        </strong>{" "}
+                        and{" "}
+                        <strong className="text-warning font-italic">
+                          sane values
+                        </strong>{" "}
                       </p>
                       <a
                         className="thm-btn"
@@ -30,7 +43,7 @@ const Home = () => {
                         title=""
                         itemProp="url"
                       >
-                        Start Donation<span></span>
+                        Get Help<span></span>
                       </a>
                     </div>
                   </div>
@@ -49,9 +62,19 @@ const Home = () => {
           </div>
         </section>
         <Partners />
+        {/* Featured Applicants */}
         <section>
           <div className="block remove-gap">
             <div className="container">
+              <div className="sec-ttl text-center">
+                <div className="sec-ttl-inr">
+                  <h2 itemProp="headline">Recent Case</h2>
+                  <span>
+                    Explore the list of people seeking for your support
+                  </span>
+                  <i className="flaticon-sweat thm-clr"></i>
+                </div>
+              </div>
               <div className="cus-wrp style3 text-center remove-ext9">
                 <div className="row">
                   <div className="col-md-3 col-sm-6 col-lg-3">
@@ -203,6 +226,7 @@ const Home = () => {
             </div>
           </div>
         </section>
+        {/* We Reachout through the media */}
         <section>
           <div className="block remove-gap">
             <div
@@ -223,18 +247,19 @@ const Home = () => {
                   </div>
                   <div className="col-md-6 col-sm-12 col-lg-6">
                     <div className="abt-desc3">
-                      <h2 itemProp="headline">
-                        Organize charity event like dinners, conserts, and
-                        outings
-                      </h2>
+                      <h2 itemProp="headline">We reachout through the media</h2>
                       <p itemProp="description">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                        Aluam, odioserunt provident maiores consectetur
-                        adipisicing error inci dunt excepturi doloribus officia
+                        We believe with our TV and Radio shows, we can inspire
+                        the lives of Thousands of inmates. Our Dealing with
+                        Crime Books and Reality Show aims at addressing the
+                        causes of criminality and restoring public safety and
+                        sane values with inspirational and life changing quotes
+                        from various speakers. This program is to be conducted
+                        at least twice in every month.
                       </p>
                       <a
                         className="thm-btn"
-                        href="donate-now.html"
+                        href="/donate"
                         title=""
                         itemProp="url"
                       >
@@ -247,8 +272,9 @@ const Home = () => {
             </div>
           </div>
         </section>
+        {/* We Rehabilitate */}
         <section>
-          <div className="block remove-gap gray-grdnt-bg">
+          <div className="block no-padding">
             <div className="container">
               <div className="sec-ttl text-center">
                 <div className="sec-ttl-inr">
@@ -257,106 +283,29 @@ const Home = () => {
                   <i className="flaticon-sweat thm-clr"></i>
                 </div>
               </div>
-              <div className="testi-wrp">
-                <div className="testi-car owl-carousel">
-                  <div className="testi-itm">
-                    <img
-                      src="/images/resources/testi-img1.jpg"
-                      alt="testi-img1.jpg"
-                      itemProp="image"
-                    />
-                    <div className="testi-inf">
-                      <h4 itemProp="headline">Maria Rose</h4>
-                      <p itemProp="description">
-                        people whose lives have been upended by war, conflict
-                        and natural disasters
-                      </p>
-                    </div>
-                  </div>
-                  <div className="testi-itm">
-                    <img
-                      src="/images/resources/testi-img2.jpg"
-                      alt="testi-img2.jpg"
-                      itemProp="image"
-                    />
-                    <div className="testi-inf">
-                      <h4 itemProp="headline">James Thomas</h4>
-                      <p itemProp="description">
-                        people whose lives have been upended by war, conflict
-                        and natural disasters
-                      </p>
-                    </div>
-                  </div>
-                  <div className="testi-itm">
-                    <img
-                      src="/images/resources/testi-img3.jpg"
-                      alt="testi-img3.jpg"
-                      itemProp="image"
-                    />
-                    <div className="testi-inf">
-                      <h4 itemProp="headline">Walkar Rose</h4>
-                      <p itemProp="description">
-                        people whose lives have been upended by war, conflict
-                        and natural disasters
-                      </p>
-                    </div>
-                  </div>
-                  <div className="testi-itm">
-                    <img
-                      src="/images/resources/testi-img4.jpg"
-                      alt="testi-img4.jpg"
-                      itemProp="image"
-                    />
-                    <div className="testi-inf">
-                      <h4 itemProp="headline">Rakki Jannie</h4>
-                      <p itemProp="description">
-                        people whose lives have been upended by war, conflict
-                        and natural disasters
-                      </p>
-                    </div>
-                  </div>
-                  <div className="testi-itm">
-                    <img
-                      src="/images/resources/testi-img5.jpg"
-                      alt="testi-img5.jpg"
-                      itemProp="image"
-                    />
-                    <div className="testi-inf">
-                      <h4 itemProp="headline">Mia Queen</h4>
-                      <p itemProp="description">
-                        people whose lives have been upended by war, conflict
-                        and natural disasters
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section>
-          <div className="block no-padding">
-            <div className="container">
               <div className="abt-wrp3 rev">
                 <div className="row align-items-center">
                   <div className="col-md-5 col-sm-12 col-lg-5">
                     <div className="abt-desc3">
                       <h2 itemProp="headline">
-                        Small growing Charity organization wants to raise Money
+                        We don't just{" "}
+                        <strong className="text-warning">Advocate</strong> we{" "}
+                        <strong className="text-link">Rehabilitate</strong>
                       </h2>
                       <p itemProp="description">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                        Aluam, odioserunt provident maiores consectetur
-                        adipisicing error inci dunt excepturi doloribus officia
+                        We also develop and provide evidence-based
+                        rehabilitation programs that facilitate positive change
+                        in the lives of offenders through our dedicated team of
+                        social skilled workers.
                       </p>
-                      <a
+                      <Link
                         className="thm-btn"
-                        href="donate-now.html"
+                        to="/faq"
                         title=""
                         itemProp="url"
                       >
-                        How To Donate<span></span>
-                      </a>
+                        Join us<span></span>
+                      </Link>
                     </div>
                   </div>
                   <div className="col-md-7 col-sm-12 col-lg-7">
@@ -373,89 +322,7 @@ const Home = () => {
             </div>
           </div>
         </section>
-        <section>
-          <div className="block top-spac100 remove-bottom">
-            <div
-              className="fixed-bg shp-bg back-post-rgtbtm"
-              style={{ backgroundImage: "url(/images/bg-shp2.png)" }}
-            ></div>
-            <div className="container">
-              <div className="fndrs-wrp2">
-                <div className="row align-items-center">
-                  <div className="col-md-4 col-sm-12 col-lg-4">
-                    <div className="fndrs-img-wrp">
-                      <img
-                        src="/images/resources/fndrs-img1.jpg"
-                        alt="fndrs-img1.jpg"
-                        itemProp="image"
-                      />
-                      <img
-                        src="/images/resources/fndrs-img2.jpg"
-                        alt="fndrs-img2.jpg"
-                        itemProp="image"
-                      />
-                      <img
-                        src="/images/resources/fndrs-img3.jpg"
-                        alt="fndrs-img3.jpg"
-                        itemProp="image"
-                      />
-                    </div>
-                  </div>
-                  <div className="col-md-4 col-sm-12 col-lg-4">
-                    <div className="fndrs-inf text-center thm-layer opc9">
-                      <div
-                        className="fixed-bg thm-bg back-blend-multiply"
-                        style={{
-                          backgroundImage: "url(/images/pattern-bg1.jpg)"
-                        }}
-                      ></div>
-                      <img
-                        src="/images/resources/fndrs-icn.png"
-                        alt="fndrs-icn.png"
-                        itemProp="image"
-                      />
-                      <h2 itemProp="headline">
-                        Star Your Nonprofit Fundraiser in Minutes
-                      </h2>
-                      <p itemProp="description">
-                        Lorem ipsum dolor sit amet, consectetur adipisic
-                        odioserunt provident maiores consectetur adipis error
-                        incidunt excepturi doloribus officia
-                      </p>
-                      <a
-                        className="thm-btn"
-                        href="donate-now.html"
-                        title=""
-                        itemProp="url"
-                      >
-                        Start Donation<span></span>
-                      </a>
-                    </div>
-                  </div>
-                  <div className="col-md-4 col-sm-12 col-sm-4">
-                    <div className="fndrs-img-wrp">
-                      <img
-                        src="/images/resources/fndrs-img4.jpg"
-                        alt="fndrs-img4.jpg"
-                        itemProp="image"
-                      />
-                      <img
-                        src="/images/resources/fndrs-img5.jpg"
-                        alt="fndrs-img5.jpg"
-                        itemProp="image"
-                      />
-                      <img
-                        src="/images/resources/fndrs-img6.jpg"
-                        alt="fndrs-img6.jpg"
-                        itemProp="image"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* Recent Articles */}
         <section>
           <div className="block gray-grdnt-bg">
             <div className="container">

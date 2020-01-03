@@ -1,16 +1,10 @@
 import React from "react";
+import TopBG from "../../../components/Front/TopBG";
 
 const Blog = () => {
   return (
-    <div>
-      <section>
-        <div className="block no-padding">
-          <div
-            className="pg-tp-bg"
-            style={{ backgroundImage: "url(/images/pg-tp-bg1.jpg)" }}
-          ></div>
-        </div>
-      </section>
+    <>
+      <TopBG />
       <div className="gray-bg3 brdcrmb-wrp">
         <div className="container">
           <div className="brdcrmb-inr flex justify-content-between">
@@ -300,7 +294,7 @@ const Blog = () => {
           </div>
         </div>
       </section>
-    </div>
+    </>
   );
 };
 

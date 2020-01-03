@@ -1,17 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import TopBG from "../../components/Front/TopBG";
 
 const About = () => {
   return (
-    <div>
-      <section>
-        <div className="block no-padding">
-          <div
-            className="pg-tp-bg"
-            style={{ backgroundImage: "url(/images/pg-tp-bg1.jpg)" }}
-          ></div>
-        </div>
-      </section>
+    <>
+      <TopBG />
       <div className="gray-bg3 brdcrmb-wrp">
         <div className="container">
           <div className="brdcrmb-inr flex justify-content-between">
@@ -39,9 +33,9 @@ const About = () => {
               <div className="row">
                 <div className="col-md-3 col-sm-6 col-lg-3">
                   <div className="srv-bx">
-                    <i className="flaticon-tshirt thm-clr"></i>
+                    <i className="flaticon-ribbon thm-clr"></i>
                     <div className="srv-inr">
-                      <h4 itemProp="headline">we serve</h4>
+                      <h4 itemProp="headline">we work</h4>
                       <p itemProp="description">
                         people whose lives have been upended by war, conflict
                         and natural disasters
@@ -51,9 +45,10 @@ const About = () => {
                 </div>
                 <div className="col-md-3 col-sm-6 col-lg-3">
                   <div className="srv-bx">
-                    <i className="flaticon-ribbon thm-clr"></i>
+                    {/* <i className="flaticon-tshirt thm-clr"></i> */}
+                    <i className="fas fa-gavel text-link"></i>
                     <div className="srv-inr">
-                      <h4 itemProp="headline">we work</h4>
+                      <h4 itemProp="headline">we serve</h4>
                       <p itemProp="description">
                         people whose lives have been upended by war, conflict
                         and natural disasters
@@ -77,7 +72,7 @@ const About = () => {
                   <div className="srv-bx">
                     <i className="flaticon-charity thm-clr"></i>
                     <div className="srv-inr">
-                      <h4 itemProp="headline">we resettle</h4>
+                      <h4 itemProp="headline">we rehabilitate</h4>
                       <p itemProp="description">
                         people whose lives have been upended by war, conflict
                         and natural disasters
@@ -546,7 +541,7 @@ const About = () => {
           </div>
         </div>
       </section>
-    </div>
+    </>
   );
 };
 
