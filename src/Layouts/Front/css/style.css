@@ -87,7 +87,9 @@ ins {
 }
 
 /* custom */
-
+.form-control{
+  border-radius: 0;
+}
 .d-select {
   padding: 1rem 1.5rem;
 
