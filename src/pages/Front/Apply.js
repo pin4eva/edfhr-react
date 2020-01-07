@@ -1,12 +1,11 @@
+import PropTypes from "prop-types";
 import React, { useState } from "react";
 import styled from "styled-components";
-import TopBG from "../../components/Front/TopBG";
-import PropTypes from "prop-types";
+import uuid from "uuid/v4";
 import Relation, { RelForm } from "../../components/Front/Apply/Relation";
-import RelationList from "../../components/Front/Apply/RelationList";
+import TopBG from "../../components/Front/TopBG";
+import states from "../../db/states";
 
-// import locale from "moment/locale/en-gb"
-// import {MuiPickersUtilsProvider} from "material-ui-pickers"
 const Btn = ({ rightStep, leftStep }) => {
   return (
     <div className="d-flex justify-content-between">
@@ -21,6 +20,9 @@ const Btn = ({ rightStep, leftStep }) => {
 };
 
 const Apply = () => {
+  const [rels, setRel] = useState([
+    { name: "Peter", phone: "07062275085", id: 1 }
+  ]);
   const [applicant, setApplicant] = useState({
     gender: "",
     proxy: "",
@@ -72,14 +74,16 @@ const Apply = () => {
     detention_cost
   } = applicant;
   const [pageCount, setPageCount] = useState("step-10");
-  const [rel, setRel] = useState([
-    { name: "Peter", phone: "07062275085", id: 1 }
-  ]);
 
   const addRelations = ({ name, phone }) => {
     // setRel(...rel, { name, title });
-    setRel([...rel, { name, phone }]);
+    setRel([...rels, { name, phone, id: uuid() }]);
     console.log({ name, phone });
+  };
+  const removeRel = id => {
+    const newRel = rels.filter(rel => rel.id !== id);
+    setRel(newRel);
+    console.log(rels);
   };
   const [answer, setAnswer] = useState("");
   const person = gender === "Male" ? "he" : gender === "Female" ? "she" : "you";
@@ -513,15 +517,59 @@ const Apply = () => {
             {pageCount === "step-10" && (
               <div>
                 <div>
-                  <RelationList />
+                  <div className="mb-3">
+                    {rels.length >= 1 ? (
+                      <p className="h5 text-center my-3">
+                        You have added {rels.length} of 3 relatives
+                      </p>
+                    ) : (
+                      <p className="h5 text-center my-3">
+                        Names of at least 3 Relatives and their Phone Numbers
+                      </p>
+                    )}
 
-                  <Field className="form_group field">
-                    <input type="number" className="form_field" required />
-                    <label className="form__label">
-                      Names of at least 3 Relatives and their Phone Numbers
-                    </label>
-                  </Field>
+                    <ul
+                      style={{ listStyle: "none", margin: "0", padding: "0" }}
+                    >
+                      {rels &&
+                        rels.map(rel => (
+                          <Relation
+                            key={rel.id}
+                            name={rel.name}
+                            phone={rel.phone}
+                            removeRel={() => {
+                              removeRel(rel.id);
+                            }}
+                          />
+                        ))}
+                    </ul>
+                  </div>
+
+                  <div style={{ marginTop: "2.5rem" }}>
+                    <RelForm
+                      addRel={(name, phone) => {
+                        rels.length >= 3
+                          ? setPageCount("step-11")
+                          : addRelations(name, phone);
+                      }}
+                      hide={rels.length === 3}
+                      desc={rels.length === 3 ? "Next Page" : "Add Relation"}
+                      variant={
+                        rels.length === 1
+                          ? "primary"
+                          : rels.length === 2
+                          ? "warning"
+                          : rels.length === 3
+                          ? "success"
+                          : "secondary"
+                      }
+                    />
+                  </div>
                 </div>
+              </div>
+            )}
+            {pageCount === "step-11" && (
+              <div id="step-11">
                 <div className="form-group mt-3">
                   <p className="h6">Briefly explain what happened</p>
                   <textarea
@@ -533,17 +581,15 @@ const Apply = () => {
                   />
                 </div>
                 <Btn
-                  rightStep={() => handleNext("step-11")}
-                  leftStep={() =>
-                    inPrison ? handleNext("step-9") : handleNext("step-6")
-                  }
+                  rightStep={() => handleNext("step-12")}
+                  leftStep={() => handleNext("step-10")}
                 />
               </div>
             )}
 
-            {/* Step 11 Personal info */}
-            {pageCount === "step-11" && (
-              <div id="step-11">
+            {/* Step 12 Personal info */}
+            {pageCount === "step-12" && (
+              <div id="step-12">
                 <Field className="form_group field">
                   <input
                     type="input"
@@ -571,11 +617,11 @@ const Apply = () => {
                     name="state_origin"
                     onChange={handleChange}
                   >
-                    <option>Yes</option>
-                    <option>Abia</option>
-                    <option>Rivers</option>
-                    <option>Lagos</option>
-                    <option>Niger</option>
+                    {states.map((state, i) => (
+                      <option key={i + 1} value={state}>
+                        {state}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <Field className="form_group field">
@@ -595,11 +641,11 @@ const Apply = () => {
                     name="state_residence"
                     onChange={handleChange}
                   >
-                    <option>Yes</option>
-                    <option>Abia</option>
-                    <option>Rivers</option>
-                    <option>Lagos</option>
-                    <option>Niger</option>
+                    {states.map((state, i) => (
+                      <option key={i + 1} value={state}>
+                        {state}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <Field className="form_group field">
@@ -612,13 +658,15 @@ const Apply = () => {
                   />
                   <label className="form__label">Referrer's ID</label>
                 </Field>
-                <button
-                  className="btn btn-success d-block rounded-0"
-                  type="button"
-                  onClick={() => console.log(applicant)}
-                >
-                  Submit
-                </button>
+                <div className="d-block w-100">
+                  <button
+                    className="btn btn-success d-block  w-100 rounded-0"
+                    type="button"
+                    onClick={() => console.log(applicant)}
+                  >
+                    Submit
+                  </button>
+                </div>
               </div>
             )}
             {/* Police and query if inPrison */}

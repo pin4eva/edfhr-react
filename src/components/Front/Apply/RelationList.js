@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import Relation, { RelForm } from "./Relation";
 import uuid from "uuid/v4";
 
-const RelationList = ({ name, phone }) => {
-  const [rels, setRel] = useState([
-    { name: "Peter", phone: "07062275085", id: 1 }
-  ]);
+const RelationList = ({ name, phone, setRel }) => {
+  // const [rels, setRel] = useState([
+  //   { name: "Peter", phone: "07062275085", id: 1 }
+  // ]);
+  const rels = [{ name: "Peter", phone: "07062275085", id: 1 }];
   const addRelations = () => {
     // setRel(...rel, { name, title });
     setRel([...rels, { name, phone, id: uuid() }]);
