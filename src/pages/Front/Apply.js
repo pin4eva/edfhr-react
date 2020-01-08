@@ -5,6 +5,7 @@ import uuid from "uuid/v4";
 import Relation, { RelForm } from "../../components/Front/Apply/Relation";
 import TopBG from "../../components/Front/TopBG";
 import states from "../../db/states";
+import Exhibit, { ExForm } from "../../components/Front/Apply/Exhibit";
 
 const Btn = ({ rightStep, leftStep }) => {
   return (
@@ -23,6 +24,7 @@ const Apply = () => {
   const [rels, setRel] = useState([
     { name: "Peter", phone: "07062275085", id: 1 }
   ]);
+  const [exhibits, setExhibits] = useState([{}]);
   const [applicant, setApplicant] = useState({
     gender: "",
     proxy: "",
@@ -31,9 +33,9 @@ const Apply = () => {
     breach_nature: "",
     breach_type: "",
     inPolice: false,
-    days_in_detention: 0,
+    daysPlus: false,
     inPrison: false,
-    months_prison: false,
+    monthsPlus: false,
     arrested_on: "",
     arrested_at: "",
     offence_charged: "",
@@ -71,9 +73,11 @@ const Apply = () => {
     case_mate,
     injured,
     bailFee,
-    detention_cost
+    detention_cost,
+    daysPlus,
+    monthsPlus
   } = applicant;
-  const [pageCount, setPageCount] = useState("step-10");
+  const [pageCount, setPageCount] = useState("step-9");
 
   const addRelations = ({ name, phone }) => {
     // setRel(...rel, { name, title });
@@ -85,6 +89,13 @@ const Apply = () => {
     setRel(newRel);
     console.log(rels);
   };
+
+  // Add exhibit
+  const addEx = ({ name, file }) => {
+    setExhibits([...exhibits, { name, file, id: uuid() }]);
+    console.log(exhibits);
+    // console.log({ name, file });
+  };
   const [answer, setAnswer] = useState("");
   const person = gender === "Male" ? "he" : gender === "Female" ? "she" : "you";
   const handleChange = e => {
@@ -95,14 +106,14 @@ const Apply = () => {
     if (type === "number") {
       value = Number(value);
     }
-    console.log({ value });
+    // console.log({ value });
     setApplicant({
       ...applicant,
       [name]: value
     });
   };
   const handleAnswer = e => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setAnswer(e.target.value);
   };
 
@@ -110,6 +121,26 @@ const Apply = () => {
     setPageCount(x);
   };
 
+  const handleSubmit = () => {
+    let caseType =
+      inPrison && monthsPlus
+        ? "case-D"
+        : inPrison && !monthsPlus
+        ? "case-C"
+        : !inPrison && daysPlus
+        ? "case-B"
+        : !inPrison && !daysPlus
+        ? "case-A"
+        : "";
+
+    let data = {
+      ...applicant,
+      caseType,
+      relatives: rels,
+      exhibits
+    };
+    console.log(data);
+  };
   return (
     <>
       <TopBG />
@@ -213,6 +244,8 @@ const Apply = () => {
                     setPageCount("step-4");
                   }}
                 >
+                  {" "}
+                  <option value={null}>Please select an option</option>
                   <option>Right to life</option>
                   <option>Right to dignity of human person</option>
                   <option>Right to personal liberty</option>
@@ -271,7 +304,10 @@ const Apply = () => {
               <div id="step-4a">
                 <div className="slc-wrp ">
                   <div className="slc-wrp ">
-                    <p className="h6">Are you waiting for DPP’s advice?</p>
+                    <p className="h6">
+                      {person === "you" ? `Are you` : `is ${person}`} waiting
+                      for DPP’s advice?
+                    </p>
                     <select
                       className="d-select border-link block-select "
                       onChange={e => {
@@ -303,15 +339,15 @@ const Apply = () => {
                   </p>
                   <select
                     className="d-select border-link block-select "
-                    name="days_in_detention"
+                    name="daysPlus"
                     onChange={e => {
                       handleChange(e);
                       setPageCount("step-6");
                     }}
                   >
                     <option value={null}>Please select an option</option>
-                    <option>Less than 24 hours</option>
-                    <option>More than 24hours </option>
+                    <option value={false}>Less than 24 hours</option>
+                    <option value={true}>More than 24hours </option>
                   </select>
                 </div>
               </div>
@@ -328,7 +364,7 @@ const Apply = () => {
                   </p>
                   <select
                     className="d-select border-link block-select "
-                    name="months_in-prison"
+                    name="monthsPlus"
                     onChange={e => {
                       handleChange(e);
                       setPageCount("step-6");
@@ -662,7 +698,7 @@ const Apply = () => {
                   <button
                     className="btn btn-success d-block  w-100 rounded-0"
                     type="button"
-                    onClick={() => console.log(applicant)}
+                    onClick={handleSubmit}
                   >
                     Submit
                   </button>
@@ -829,22 +865,11 @@ const Apply = () => {
 
             {/* Step 9 Exhibite upload id inPrison */}
             {pageCount === "step-9" && (
-              <div className="row">
-                <div className="col-lg-6">
-                  <div className="slc-wrp ">
-                    <p className="h6">Please Up load Exhibits Here if any.</p>
-                    <select className="d-select border-link block-select ">
-                      <option>Charge sheets</option>
-                      <option>Remand Warrant </option>
-                      <option>Record of Court proceeding</option>
-                      <option>Pictures</option>
-                      <option>Any other Exhibits/Evidence</option>
-                    </select>
-                  </div>
+              <div id="step-9">
+                <div className="exhibits">
+                  <Exhibit />
                 </div>
-                <Field className="form_group field col-lg-6">
-                  <input type="file" className="form_field file" required />
-                </Field>
+                <ExForm addEx={(name, file) => addEx(name, file)} />
                 <Btn
                   rightStep={() => handleNext("step-10")}
                   leftStep={() => handleNext("step-9")}
