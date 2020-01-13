@@ -1,85 +1,70 @@
 const mongoose = require("mongoose");
 
-const NewApplicant = new mongoose.Schema({
-  proxy: Boolean,
+const NewApplicantSchema = new mongoose.Schema({
+  proxy: { type: Boolean, default: false },
   name: String,
   gender: String,
   address: String,
   breach_nature: String,
-  breach_consequence: String,
+  breach_type: String,
   inPolice: Boolean,
-  days_in_detention: { type: Number, default: 0 },
-  inPrison: Boolean,
-  months_inPrison: { type: Number, default: 0 },
+  daysPlus: { type: Boolean, default: false },
+  inPrison: { type: Boolean, default: false },
+  monthsPlus: { type: Boolean, default: false },
   arrested_on: Date,
   arrested_at: String,
-  offence: String,
-  case_mate: Number,
+  offence_charged: String,
+  offence_suspected: String,
+  hasMates: { type: Boolean, default: false },
+  case_mates: { type: Number, default: 0 },
   itinerary: String,
   station: String,
-station2: String,
+  station2: String,
+  station_duration: { type: Number, default: 0 },
+  station2_duration: { type: Number, default: 0 },
   image: String,
-  beaten: Boolean,
-  injured: Boolean,
-  beaten_explained: String,
-  bailFee: Boolean,
-  bailAmount: Number,
+  beaten: { type: Boolean, default: false },
+  injured: { type: Boolean, default: false },
+  injured_explained: String,
+  bailFee: { type: Boolean, default: false },
+  bailAmount: { type: Number, default: 0 },
   bail_explained: String,
   detention_cost: String,
-  relatives: [{ type: mongoose.Schema.Types.ObjectId, ref: "Relation" }],
+  relatives: [{ name: String, phone: String, rel: String }],
   dppAdvice: String,
   first_accused: String,
   brief: String,
-  exibit: [{ type: mongoose.Schema.Types.ObjectId, ref: "Exibit" }],
+  exhibit: [{ type: mongoose.Schema.Types.ObjectId, ref: "Exhibit" }], //[{ name: String, image: String }]
   arraigned_on: Date,
   arraigned_at: String,
   createdAt: { type: Date, default: Date.now },
   state_origin: String,
-  state: String,
-  lga: String
+  state_residence: String,
+  lga: String,
+  agentID: String,
+  adjournment_date: String,
+  caseType: String,
+  token: String
 });
 
-const RelationSchema = new mongoose.Schema({
-  name: String,
-  phone: String,
-  rel: String
-});
-
-const ExibitSchema = new mongoose.Schema({
+const ExhibitSchema = new mongoose.Schema({
   name: String,
   image: String
 });
-const ApplicantSchema = new mongoose.Schema({
-  firstName: { type: String, require: true },
-  lastName: { type: String, require: true },
-  other: { type: String, require: true },
-  email: { type: String, require: true },
-  phone: { type: String, required: true },
-  token: { type: String },
-  status: { type: Boolean, default: false },
-  caseType: String,
-  pic: String,
-  state_origin: String,
-  gender: String,
-  lga: String,
-  form: { type: mongoose.Schema.Types.ObjectId, ref: "Draft" },
-  referrer: { type: mongoose.Schema.Types.ObjectId, Ref: "Rep" }
+ExhibitSchema.pre("remove", async function(next) {
+  // console.log("Exhibit was removed", this.name, this.image);
+  var id = this._id;
+  mongoose
+    .model("NewApplicant")
+    .updateOne({ exhibit: { $in: [id] } }, { $pull: { exhibit: { _id: id } } });
+
+  next();
 });
 
-const DraftSchema = new mongoose.Schema({
-  arrested_on: String,
-  state_arrest: String,
-  city: String,
-  ipo: String,
-  police_address: String,
-  prison_name: String
-});
-
-const Draft = mongoose.model("Draft", DraftSchema);
-// const Affidavit = mongoose.model("Affidavit", AffidavitSchema);
-const Applicant = mongoose.model("Applicant", ApplicantSchema);
+const Exhibit = mongoose.model("Exhibit", ExhibitSchema);
+const NewApplicant = mongoose.model("NewApplicant", NewApplicantSchema);
 
 module.exports = {
-  Draft,
-  Applicant
+  NewApplicant,
+  Exhibit
 };

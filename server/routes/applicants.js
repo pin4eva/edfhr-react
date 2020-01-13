@@ -5,7 +5,10 @@ const {
   viewApplicants,
   viewApplicant,
   searchToken,
-  updateApplicant
+  updateApplicant,
+  exhibitUpload,
+  deleteExhibit,
+  deleteApplicant
 } = require("../controllers/applicant");
 
 router
@@ -13,10 +16,16 @@ router
   .post(createApplicant)
   .get(viewApplicants);
 
-router.route("/:id").get(viewApplicant);
+router
+  .route("/single/:id")
+  .get(viewApplicant)
+  .delete(deleteApplicant);
 router
   .route("/token/:token")
   .get(searchToken)
   .put(updateApplicant);
+
+router.route("/exhibit/:id").put(exhibitUpload);
+router.route("/exhibit/:exhibit").delete(deleteExhibit);
 
 module.exports = router;

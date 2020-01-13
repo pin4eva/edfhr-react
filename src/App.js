@@ -19,7 +19,10 @@ import ErrorPage from "./pages/Front/Error";
 import Faq from "./pages/Front/Faq";
 import Home from "./pages/Front/Home";
 import Donate from "./pages/Front/Donate";
-import Apply from "./pages/Front/Apply";
+import Apply from "./pages/Front/Apply/index";
+import ApplicantLogin from "./pages/Front/Apply/ApplicantLogin";
+import dash from "./pages/Front/Apply/dash";
+import ApplicantDashboard from "./Layouts/Applicant";
 
 const AppRoute = ({ component: Component, layout: Layout, ...rest }) => (
   <Route
@@ -43,6 +46,18 @@ const App = () => (
         <AppRoute exact path="/faq" layout={Front} component={Faq} />
         <AppRoute exact path="/donate" layout={Front} component={Donate} />
         <AppRoute exact path="/apply" layout={Front} component={Apply} />
+        <AppRoute
+          exact
+          path="/applicant-dashboard"
+          layout={ApplicantDashboard}
+          component={dash}
+        />
+        <AppRoute
+          exact
+          path="/applicant"
+          layout={Front}
+          component={ApplicantLogin}
+        />
         <AppRoute
           exact
           path="/blog/:id"

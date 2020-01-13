@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 // import applicants from "../../db/applicants";
 
 const SingleApplicant = ({ applicant }) => {
-  const { firstName, lastName, state, _id } = applicant;
+  const { name, state, _id } = applicant;
   return (
     <>
       <div className="card testimonial-card p-2">
@@ -21,7 +21,7 @@ const SingleApplicant = ({ applicant }) => {
 
         <div className="card-body">
           <Link to={`/dashboard/applicants/${_id}`}>
-            <h4 className="card-title text-center">{`${firstName} ${lastName}`}</h4>
+            <h4 className="card-title text-center">{name}</h4>
             <h6 className="text-center bg-success px-4 py-2 text-white">
               {state}
             </h6>

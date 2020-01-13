@@ -391,7 +391,7 @@ const About = () => {
                         backgroundImage: "url(/images/resources/tem-img1-2.jpg)"
                       }}
                     >
-                      <Link href="team-detail.html" title="" itemProp="url">
+                      <Link to="/" title="" itemProp="url">
                         <i className="fa fa-chevron-right"></i>
                       </Link>
                       <div className="tem-scl">

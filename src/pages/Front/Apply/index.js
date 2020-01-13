@@ -2,10 +2,11 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import styled from "styled-components";
 import uuid from "uuid/v4";
-import Relation, { RelForm } from "../../components/Front/Apply/Relation";
-import TopBG from "../../components/Front/TopBG";
-import states from "../../db/states";
-import Exhibit, { ExForm } from "../../components/Front/Apply/Exhibit";
+import Relation, { RelForm } from "../../../components/Front/Apply/Relation";
+import TopBG from "../../../components/Front/TopBG";
+import states from "../../../db/states";
+import Exhibit, { ExForm } from "../../../components/Front/Apply/Exhibit";
+import { Link } from "react-router-dom";
 
 const Btn = ({ rightStep, leftStep }) => {
   return (
@@ -27,7 +28,7 @@ const Apply = () => {
   const [exhibits, setExhibits] = useState([{}]);
   const [applicant, setApplicant] = useState({
     gender: "",
-    proxy: "",
+    proxy: false,
     name: "",
     address: "",
     breach_nature: "",
@@ -40,7 +41,8 @@ const Apply = () => {
     arrested_at: "",
     offence_charged: "",
     offence_suspected: "",
-    case_mate: false,
+    hasMates: false,
+    case_mates: 0,
     mate_no: 0,
     itinerary: "",
     station: "",
@@ -52,7 +54,7 @@ const Apply = () => {
     station_duration: "",
     bailFee: false,
     bailAmount: 0,
-    bail_explain: "",
+    bail_explained: "",
     detention_cost: "",
     first_accused: "",
     arraigned_on: "",
@@ -77,7 +79,7 @@ const Apply = () => {
     daysPlus,
     monthsPlus
   } = applicant;
-  const [pageCount, setPageCount] = useState("step-9");
+  const [pageCount, setPageCount] = useState("step-1");
 
   const addRelations = ({ name, phone }) => {
     // setRel(...rel, { name, title });
@@ -124,13 +126,13 @@ const Apply = () => {
   const handleSubmit = () => {
     let caseType =
       inPrison && monthsPlus
-        ? "case-D"
+        ? "D"
         : inPrison && !monthsPlus
-        ? "case-C"
+        ? "C"
         : !inPrison && daysPlus
-        ? "case-B"
+        ? "B"
         : !inPrison && !daysPlus
-        ? "case-A"
+        ? "A"
         : "";
 
     let data = {
@@ -144,13 +146,33 @@ const Apply = () => {
   return (
     <>
       <TopBG />
+      <div className="gray-bg3 brdcrmb-wrp">
+        <div className="container">
+          <div className="brdcrmb-inr flex justify-content-between">
+            <ol className="breadcrumb">
+              <li className="breadcrumb-item">
+                <Link to="/" title="" itemProp="url">
+                  Home
+                </Link>
+              </li>
+              <li className="breadcrumb-item active">Applicant Registration</li>
+            </ol>
+            <form className="pg-srch-frm">
+              <input type="text" placeholder="Search All Resources" />
+              <button type="submit">
+                <i className="fa fa-search"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
       <div className="container">
         <Wrapper>
           <h2>{pageCount} </h2>
           <form>
             {/* Step 1 */}
             {pageCount === "step-1" && (
-              <div id="step-1" className="m-100 my-auto">
+              <div id="step-1" className=" show m-100 my-auto">
                 <div className="slc-wrp ">
                   <p className="h6">Do you have a lawyer ?</p>
                   <select
@@ -173,7 +195,7 @@ const Apply = () => {
             )}
             {/* Step 2 proxy */}
             {pageCount === "step-2" && (
-              <div id="step-2">
+              <div className="show" id="step-2">
                 <div className="slc-wrp ">
                   <p className="h6">Who are you applying for ?</p>
                   <select
@@ -181,14 +203,14 @@ const Apply = () => {
                     className="d-select border-link block-select "
                     onChange={e => {
                       handleChange(e);
-                      e.target.value === "self"
+                      e.target.value === "false"
                         ? setPageCount("step-3b")
                         : setPageCount("step-3");
                     }}
                   >
                     <option value={null}>Select an option</option>
-                    <option value="self">Self</option>
-                    <option value="another">Another</option>
+                    <option value={false}>Self</option>
+                    <option value={true}>Another</option>
                   </select>
                 </div>
               </div>
@@ -196,7 +218,7 @@ const Apply = () => {
             {/* Step -3 proxy gender */}
 
             {pageCount === "step-3" && (
-              <div id="step-3">
+              <div className="show" id="step-3">
                 <div className="slc-wrp ">
                   <p className="h6">Gender ?</p>
                   <select
@@ -220,7 +242,7 @@ const Apply = () => {
                 [Step-4]
             */}
             {pageCount === "step-3b" && (
-              <div id="step-3b">
+              <div className="show" id="step-3b">
                 <Field className="form_group field">
                   <input
                     type="input"
@@ -272,7 +294,7 @@ const Apply = () => {
             {/* *************************************************************** */}
             {/* Step 4 where are you inPrison ? */}
             {pageCount === "step-4" && (
-              <div id="step-4">
+              <div className="show" id="step-4">
                 <div className="slc-wrp ">
                   <p className="h6">
                     Where {person === "you" ? "are you" : `is ${person}`} now ?
@@ -301,7 +323,7 @@ const Apply = () => {
             )}
             {/* DPP's Advice. if inPrison */}
             {inPrison && pageCount === "step-4a" && (
-              <div id="step-4a">
+              <div className="show" id="step-4a">
                 <div className="slc-wrp ">
                   <div className="slc-wrp ">
                     <p className="h6">
@@ -330,7 +352,7 @@ const Apply = () => {
             {/* Step 5a if in police detention */}
 
             {pageCount === "step-5a" && (
-              <div id="step-5">
+              <div className="show" id="step-5">
                 <div className="slc-wrp ">
                   <p className="h6">
                     How long{" "}
@@ -355,7 +377,7 @@ const Apply = () => {
 
             {/*Step 5b if in Prison */}
             {pageCount === "step-5b" && (
-              <div id="step-5b">
+              <div className="show" id="step-5b">
                 <div className="slc-wrp ">
                   <p className="h6">
                     How long{" "}
@@ -383,7 +405,7 @@ const Apply = () => {
             {/* *************************************************************************************************************** */}
             {/* General Police Query */}
             {pageCount === "step-6" && (
-              <div>
+              <div className="show">
                 <div className="slc-wrp ">
                   <p className="h6">
                     When{" "}
@@ -440,7 +462,7 @@ const Apply = () => {
                   </select>
                 </div>
                 {pageCount === "step-6" && case_mate && (
-                  <Field className="form_group field">
+                  <Field className="show form_group field">
                     <input
                       type="number"
                       className="form_field"
@@ -551,7 +573,7 @@ const Apply = () => {
             )}
             {/* Step 10 Relatives */}
             {pageCount === "step-10" && (
-              <div>
+              <div className="show">
                 <div>
                   <div className="mb-3">
                     {rels.length >= 1 ? (
@@ -605,7 +627,7 @@ const Apply = () => {
               </div>
             )}
             {pageCount === "step-11" && (
-              <div id="step-11">
+              <div className="show" id="step-11">
                 <div className="form-group mt-3">
                   <p className="h6">Briefly explain what happened</p>
                   <textarea
@@ -625,7 +647,7 @@ const Apply = () => {
 
             {/* Step 12 Personal info */}
             {pageCount === "step-12" && (
-              <div id="step-12">
+              <div className="show" id="step-12">
                 <Field className="form_group field">
                   <input
                     type="input"
@@ -707,7 +729,7 @@ const Apply = () => {
             )}
             {/* Police and query if inPrison */}
             {pageCount === "step-7" && inPrison && (
-              <div>
+              <div className="show">
                 <Field className="form_group field">
                   <input
                     type="number"
@@ -822,7 +844,7 @@ const Apply = () => {
 
             {/* Step 8 dentention cost if inPrison */}
             {pageCount === "step-8" && (
-              <div>
+              <div className="show">
                 <div className="slc-wrp ">
                   <p className="h6">
                     Did your detention caused you any job loss or vocational
@@ -865,7 +887,7 @@ const Apply = () => {
 
             {/* Step 9 Exhibite upload id inPrison */}
             {pageCount === "step-9" && (
-              <div id="step-9">
+              <div className="show" id="step-9">
                 <div className="exhibits">
                   <Exhibit />
                 </div>
@@ -887,20 +909,21 @@ Apply.propTypes = {
   true: PropTypes.bool,
   false: PropTypes.bool
 };
-const primary = "#b8d941";
+// const primary = "#b8d941";
 
 const Field = styled.div`
   /* border: 2px solid gray; */
   margin-bottom: 1rem;
   padding: 1rem 0;
-  &:hover {
-    /* border: 2px solid ${primary}; */
-    transition: all 0.3s linear;
-  }
+
   input[type="radio"] {
     position: absolute;
     opacity: 0;
     cursor: pointer;
+  }
+  .show {
+    display: block;
+    transition: all 0.8s linear;
   }
 `;
 
