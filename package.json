@@ -19,7 +19,7 @@
     "date-fns": "^2.0.0-beta.5",
     "dayjs": "^1.8.18",
     "jquery": "^3.4.1",
-    "luxon": "^1.21.3",
+    "luxon": "^2.5.2",
     "material-ui-pickers": "^2.2.4",
     "moment": "^2.24.0",
     "perfect-scrollbar": "^1.4.0",
